@@ -1,8 +1,10 @@
 window.addEventListener("deviceorientation",ondevor);
 
+var radius = 20;
+
 function ondevor(e){
 	document.getElementById("orientation_id");
-	var viewpoint = document.getELementById("id_viewpoint");
+	var viewpoint = document.getElementById("id_viewpoint");
 	var x = radius * Math.cos(e.alpha*Math.PI/180);
 	var z = radius * Math.sin(e.alpha*Math.PI/180);
 	viewpoint.setAttribute("position",x+" 0 "+ z);
