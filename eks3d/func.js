@@ -1,16 +1,21 @@
 
-	document.getElementById("business_V").innerHTML = "23/03/18 v2";
-	setInterval( deseneaza,15,0,1);
+	document.getElementById("business_V").innerHTML = "23/03/18 v3";
+
+
+	var stare = {y:0,directie:1}
+
+
+	setInterval( deseneaza,15, stare);
 	var y = 0;
 	var directie = 0.1;
-	function deseneaza(y, directie){
+	function deseneaza(x){
 		var t = document.getElementById("id_transform");
-		t.setAttribute("translation","0 "+y+" 0");
-		y+=directie;
-		if(y>7){
-			directie = -0.1;
-		} else if (y< -7){
-			directie = 0.1;
+		t.setAttribute("translation","0 "+x.y+" 0");
+		x.y+=x.directie;
+		if(x.y>7){
+			x.directie = -0.1;
+		} else if (x.y< -7){
+			x.directie = 0.1;
 		}
 	 	
 
