@@ -2,7 +2,7 @@
 	document.getElementById("business_V").innerHTML = "23/03/18 v3";
 
 
-	var stare = {y:0,directie:1}
+	var stare = {y:0,directie:0.1}
 
 
 	setInterval( deseneaza,15, stare);
