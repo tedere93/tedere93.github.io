@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script> 
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link> 
+	<title></title>
+</head>
+<body>
+
+
+	<p>UI Version no:2018.03.09.1</p>
+	<p id="business_V"></p>
+	<p id="orientation_id"></p>
+	<x3d width="600" height="400">
+		<scene>
+			<transform def = "ball" id="id_transform">
+				<shape>
+					<appearance>
+						<material diffusecolor ="1 0 0" transparency="0.5">
+					</appearance>
+					<Sphere></Sphere>
+				</shape>
+			</transform>
+
+			<TimeSensor DEF="timer" cycleInterval = 4 loop = true>
+				
+			</TimeSensor>
+			<PositionInterpolator DEF="path" key="0 0.33 0.67 1" keyvalue="0 0 0,0 5 0,0 -5 0,0 0 0 "></PositionInterpolator>
+			<route fromNode="timer" fromField="fraction_changed" toNode="path" toField="set_fraction"></route>
+			<route fromNode="path" fromField="value_changed" toNode="ball" toField="set_translation"></route>
+
+		</scene>
+	</x3d>
+
+
+</body>
+
+<!-- <script type="text/javascript" src="func.js"></script> -->
+
+</html>
