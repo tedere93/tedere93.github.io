@@ -1,62 +1,52 @@
+
 <!DOCTYPE html>
-<html>
-<head>
+ <html> 
+<head> 		
 	<script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script> 
-    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link> 
-	<title></title>
-</head>
-<body>
-
-
-	<p>UI Version no:2018.03.09.1</p>
-	<p id="business_V"></p>
-	<p id="orientation_id"></p>
-	<x3d width="600" height="400">
+	<link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link> 
+</head> 
+<body> 
+<p> UI version number: 2018.03.23.1</p>
+<p id="id_business_level"></p>
+	<x3d style="width: 600px;height: 400px;">
 		<scene>
-			<transform def = "planeta1" id="id_transform">
-				<transform translation = "2 0 0">
-					<shape>
-						<appearance>
-							<material diffusecolor ="1 0 0" transparency="0.5">
-						</appearance>
-						<Sphere></Sphere>
-					</shape>
-				</transform>
-			</transform>
-
-			<transform def = "planeta2" id="id_transform">
-				<transform translation = "3 0 0">
-					<shape>
-						<appearance>
-							<material diffusecolor ="1 0 0" transparency="0.5">
-						</appearance>
-						<Sphere></Sphere>
-					</shape>
-				</transform>
-			</transform>
-
-
-			<TimeSensor DEF="timer" cycleInterval = 4 loop = true>
-				
-			</TimeSensor>
-			<OrientationInterpolator DEF="path" key="0 0.5 1" keyvalue="0 0 0,0 0 1 3.14,0 0 1 6.28"></OrientationInterpolator>
-			<route fromNode="timer" fromField="fraction_changed" toNode="path" toField="set_fraction"></route>
-			<route fromNode="path" fromField="value_changed" toNode="planeta1" toField="set_translation"></route>
-
-
-			<TimeSensor DEF="timer2" cycleInterval = 4 loop = true>
-				
-			</TimeSensor>
-			<OrientationInterpolator DEF="path2" key="0 0.5 1" keyvalue="0 0 0,0 0 1 3.14,0 0 1 6.28"></OrientationInterpolator>
-			<route fromNode="timer2" fromField="fraction_changed" toNode="path2" toField="set_fraction"></route>
-			<route fromNode="path2" fromField="value_changed" toNode="planeta12" toField="set_translation"></route>
-
+		<!--planeta 1-->
+		<Transform DEF = "planeta1">
+		<Transform translation = "2 0 0">
+			<shape>
+				<appearance>
+					<material diffusecolor="1 0 0" transparency="0.2"/>
+				</appearance>
+				<Sphere radius = "0.1"> 
+				</Sphere>
+			</shape>
+		</Transform>
+		</Transform>
+		<!--planeta 2-->
+		<Transform DEF = "planeta2">
+		<Transform translation = "3 0 0">
+			<shape>
+				<appearance>
+					<material diffusecolor="0 1 0" transparency="0.2"/>
+				</appearance>
+				<Sphere radius = "0.2"> 
+				</Sphere>
+			</shape>
+		</Transform>
+		</Transform>
+		
+		<TimeSensor DEF= "timer1" cycleInterval = '4' loop = "true"></TimeSensor>
+		<OrientationInterpolator DEF= "path1" key = "0 0.5 1" keyValue = "0 0 0 0, 0 0 1 3.14, 0 0 1 6.28"></OrientationInterpolator>
+		<Route fromNode = "timer1" fromField = "fraction_changed" toNode = "path1" toField = "set_fraction"></Route>
+		<Route fromNode = "path1" fromField = "value_changed" toNode = "planeta1" toField = "set_rotation"></Route>
+		
+		<TimeSensor DEF= "timer2" cycleInterval = '6' loop = "true"></TimeSensor>
+		<OrientationInterpolator DEF= "path2" key = "0 0.5 1" keyValue = "0 0 0 0, 0 0 1 3.14, 0 0 1 6.28"></OrientationInterpolator>
+		<Route fromNode = "timer2" fromField = "fraction_changed" toNode = "path2" toField = "set_fraction"></Route>
+		<Route fromNode = "path2" fromField = "value_changed" toNode = "planeta2" toField = "set_rotation"></Route>
 		</scene>
-	</x3d>
+	</x3d>		
 
-
-</body>
-
-<!-- <script type="text/javascript" src="func.js"></script> -->
-
-</html>
+</body> 
+</html>           
+        
