@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -74,12 +75,26 @@ base_image.onload = function(){
 	// scalez
 	for(var i=0;i<diagonala;i++){
 		for(var j=0;j<180;j++){
-			accumulator[i][j] = accumulator[i][j]/parseFloat(maxacc).toFixed(2)*255;
+			accumulator[i][j] = parseInt(accumulator[i][j]/maxacc*255);
 		}
 	}
 	
+	var count = 0;
+	var arrayiu = new Array;
+	for(var i=0;i<diagonala;i++){
+		for(var j=0;j<180;j++){
+			// arrayiu.push(accumulator[i][j]);
+			console.log(accumulator[i][j]);
+		}
+	}
 
 
+	// niste verificari
+	// var uniquearray = [];
+	// $.each(arrayiu, function(i,el){
+	// 	if($.inArray(el,uniquearray)===-1) uniquearray.push(el);
+	// });
+	// console.log(uniquearray.sort());
 
 	// populez imaginea
 	for(var i=0;i<diagonala;i++){
