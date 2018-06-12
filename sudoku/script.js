@@ -1,8 +1,10 @@
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
-var canvas2 = document.getElementById('myCanv');
+var canvas2 = document.getElementById('myCanv2');
 ctx = canvas2.getContext('2d');
+ctx.fillStyle = "blue";
+ctx.fillRect(0, 0, canvas2.width, canvas2.height);
 
 base_image = new Image();
 base_image.src = 'sudoku.png';
@@ -72,17 +74,21 @@ base_image.onload = function(){
 	// scalez
 	for(var i=0;i<diagonala;i++){
 		for(var j=0;j<180;j++){
-			accumulator[i][j] = accumulator[i][j]/parseFloat(maxacc)*255;
+			accumulator[i][j] = accumulator[i][j]/parseFloat(maxacc).toFixed(2)*255;
 		}
 	}
+	
 
 
 
 	// populez imaginea
 	for(var i=0;i<diagonala;i++){
 		for(var j=0;j<180;j++){
-			var vareabila = accumulator[i][j];
-			ctx.putImageData(vareabila,i,j);
+			var imageData = ctx.createImageData(1,1);
+			imageData.data[1]=accumulator[i][j];
+			imageData.data[2]=accumulator[i][j];
+			imageData.data[3]=accumulator[i][j];
+			ctx.putImageData(imageData,i,j);
 		}
 	}
 
