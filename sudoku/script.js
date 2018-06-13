@@ -79,14 +79,15 @@ base_image.onload = function(){
 		}
 	}
 	
-	var count = 0;
-	var arrayiu = new Array;
-	for(var i=0;i<diagonala;i++){
-		for(var j=0;j<180;j++){
-			// arrayiu.push(accumulator[i][j]);
-			console.log(accumulator[i][j]);
-		}
-	}
+	//teste verific ce valori am in accumulator.
+	// var count = 0;
+	// var arrayiu = new Array;
+	// for(var i=0;i<diagonala;i++){
+	// 	for(var j=0;j<180;j++){
+	// 		// arrayiu.push(accumulator[i][j]);
+	// 		// console.log(accumulator[i][j]);
+	// 	}
+	// }
 
 
 	// niste verificari
@@ -96,14 +97,28 @@ base_image.onload = function(){
 	// });
 	// console.log(uniquearray.sort());
 
-	// populez imaginea
+
+
+	var prag = 16;
 	for(var i=0;i<diagonala;i++){
-		for(var j=0;j<180;j++){
-			var imageData = ctx.createImageData(1,1);
-			imageData.data[1]=accumulator[i][j];
-			imageData.data[2]=accumulator[i][j];
-			imageData.data[3]=accumulator[i][j];
-			ctx.putImageData(imageData,i,j);
+		for(var j = 0;j<180;j++){
+			if(accumulator[i][j]>prag){
+
+
+				var x1,y1,x2,y2;
+				x1 = 0;
+				y1 = ((i - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(j/180*3.14))/ Math.sin(j/180*3.14) + canvas2.height/2).toFixed(0);
+
+				x2 = canvas2.width -1;
+				y2 =  (i - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(j/180*3.14))/ Math.sin(j/180*3.14) + canvas2.height/2;
+
+				
+				console.log(y1);
+				ctx.moveTo(x1,y1);
+				ctx.lineTo(x2,y2);
+
+				ctx.stroke();
+			}
 		}
 	}
 
