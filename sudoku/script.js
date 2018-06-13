@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v1.0";
+document.getElementById("v1").innerHTML = "v2.0";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -49,9 +49,9 @@ base_image.onload = function(){
 			var culoare = context.getImageData(i,j,1,1);
 			var data = culoare.data;
 			// console.log(data.length);
-			if(data[1]<255 && data[2]<255 && data[3]<255){
+			if(data[0]<255 && data[1]<255 && data[2]<255){
 				for(var theta=0;theta<180;theta++){
-					var r = parseInt((i-canvas.width/2)*Math.cos(theta/180/3.14)+(j - canvas.height/2)*Math.sin(theta/180/3.14));
+					var r = parseInt((i-canvas.width/2)*Math.cos(theta/180*3.14)+(j - canvas.height/2)*Math.sin(theta/180*3.14));
 					accumulator[r+diagonala/2][theta]++;
 					// console.log(r+diagonala/2);
 				}
@@ -99,18 +99,33 @@ base_image.onload = function(){
 
 
 
-	var prag = 16;
-	for(var i=0;i<diagonala;i++){
-		for(var j = 0;j<180;j++){
-			if(accumulator[i][j]>prag){
+	var prag = 150;
+	for(var raza=0;raza<diagonala;raza++){
+		for(var theta = 0;theta<180;theta++){
+			if(accumulator[raza][theta]>prag){
 
 
 				var x1,y1,x2,y2;
 				x1 = 0;
-				y1 = ((i - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(j/180.0*3.14))/ Math.sin(j/180.0*3.14) + canvas2.height/2).toFixed(0);
+
+				if(theta != 0){
+					y1 = ((raza - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
+				} else {
+					x1 = (raza - diagonala/2) + canvas2.width/2;
+					y1 = 0;
+				}
+
 
 				x2 = canvas2.width -1;
-				y2 = ((i - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(j/180.0*3.14))/ Math.sin(j/180.0*3.14) + canvas2.height/2).toFixed(0);
+
+				if(theta != 0){
+					y2 = ((raza - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
+				} else {
+					x2 = (r - diagonala/2) + canvas2.width/2;
+					y2 = canvas2.width -1;
+				}
+
+				
 
 				
 				console.log(y1);
