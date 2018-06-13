@@ -2,6 +2,8 @@ document.getElementById("v1").innerHTML = "v2.0";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
+
+
 var canvas2 = document.getElementById('myCanv2');
 ctx = canvas2.getContext('2d');
 ctx.fillStyle = "blue";
@@ -13,22 +15,25 @@ base_image.onload = function(){
 	context.drawImage(base_image, 0, 0);
 	var image = context.getImageData(1,1,400,400);
 	var data = image.data;
-	for(var i = 0;i<data.length;i+=4){
-		var red = data[i];
-		var green = data[i+1];
-		var blue = data[i+2];
+	// for(var i = 0;i<data.length;i+=4){
+	// 	var red = data[i];
+	// 	var green = data[i+1];
+	// 	var blue = data[i+2];
 
-		if(red>240&&green>240&&blue>240){
-			data[i] = 255;
-			data[i+1] = 255;
-			data[i+2] = 255;
-		} else {
-			data[i] = 0;
-			data[i+1] = 0;
-			data[i+2] = 0;
-		}
-	}
-	context.putImageData(image,0,0);
+	// 	if(red>240&&green>240&&blue>240){
+	// 		data[i] = 255;
+	// 		data[i+1] = 255;
+	// 		data[i+2] = 255;
+	// 	} else {
+	// 		data[i] = 0;
+	// 		data[i+1] = 0;
+	// 		data[i+2] = 0;
+	// 	}
+	// }
+	// context.putImageData(image,0,0);
+
+	var imageData = CannyJS.canny(canvas);
+	imageData.drawOn(myCanv);
 
 	var diagonala = parseInt(Math.sqrt(canvas.height*canvas.height + canvas.width*canvas.width)+1);
 
