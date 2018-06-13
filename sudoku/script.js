@@ -1,4 +1,4 @@
-
+document.getElementById("v1").innerHTML = "v1.0";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -107,10 +107,10 @@ base_image.onload = function(){
 
 				var x1,y1,x2,y2;
 				x1 = 0;
-				y1 = ((i - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(j/180*3.14))/ Math.sin(j/180*3.14) + canvas2.height/2).toFixed(0);
+				y1 = ((i - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(j/180.0*3.14))/ Math.sin(j/180.0*3.14) + canvas2.height/2).toFixed(0);
 
 				x2 = canvas2.width -1;
-				y2 =  (i - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(j/180*3.14))/ Math.sin(j/180*3.14) + canvas2.height/2;
+				y2 = ((i - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(j/180.0*3.14))/ Math.sin(j/180.0*3.14) + canvas2.height/2).toFixed(0);
 
 				
 				console.log(y1);
