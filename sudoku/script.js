@@ -38,9 +38,9 @@ base_image.onload = function(){
 		accumulator[i]= new Array(180);
 	}
 
-	for(var i=0;i<diagonala;i++){
-		for(var j=0;j<180;j++){
-			accumulator[i][j]=0;
+	for(var raza=0;raza<diagonala;raza++){
+		for(var theta=0;theta<180;theta++){
+			accumulator[raza][theta]=0;
 		}
 	}
 
@@ -51,8 +51,8 @@ base_image.onload = function(){
 			// console.log(data.length);
 			if(data[0]<255 && data[1]<255 && data[2]<255){
 				for(var theta=0;theta<180;theta++){
-					var r = parseInt((i-canvas.width/2)*Math.cos(theta/180*3.14)+(j - canvas.height/2)*Math.sin(theta/180*3.14));
-					accumulator[r+diagonala/2][theta]++;
+					var raza = parseInt((i-canvas.width/2)*Math.cos(theta/180*3.14)+(j - canvas.height/2)*Math.sin(theta/180*3.14));
+					accumulator[raza+diagonala/2][theta]++;
 					// console.log(r+diagonala/2);
 				}
 			}
@@ -99,7 +99,7 @@ base_image.onload = function(){
 
 
 
-	var prag = 150;
+	var prag = 200;
 	for(var raza=0;raza<diagonala;raza++){
 		for(var theta = 0;theta<180;theta++){
 			if(accumulator[raza][theta]>prag){
@@ -121,7 +121,7 @@ base_image.onload = function(){
 				if(theta != 0){
 					y2 = ((raza - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
 				} else {
-					x2 = (r - diagonala/2) + canvas2.width/2;
+					x2 = (raza - diagonala/2) + canvas2.width/2;
 					y2 = canvas2.width -1;
 				}
 
