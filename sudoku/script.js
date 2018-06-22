@@ -120,20 +120,16 @@ base_image.onload = function(){
 					y1 = 0;
 				}
 
-
 				x2 = canvas2.width -1;
 
 				if(theta != 0){
 					y2 = ((raza - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
 				} else {
 					x2 = (raza - diagonala/2) + canvas2.width/2;
-					y2 = canvas2.width -1;
+					y2 = canvas2.height -1;
 				}
 
-				
-
-				
-				console.log(y1);
+				console.log(x1, y1, x2, y2);
 				ctx.moveTo(x1,y1);
 				ctx.lineTo(x2,y2);
 
