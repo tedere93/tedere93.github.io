@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v2.4";
+document.getElementById("v1").innerHTML = "v2.5";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -13,7 +13,7 @@ base_image = new Image();
 base_image.src = 'sudoku.png';
 base_image.onload = function(){
 	context.drawImage(base_image, 0, 0);
-	var image = context.getImageData(1,1,400,400);
+	var image = context.getImageData(1, 1, 400, 400);
 	var data = image.data;
 	// for(var i = 0;i<data.length;i+=4){
 	// 	var red = data[i];
@@ -35,29 +35,29 @@ base_image.onload = function(){
 	var imageData = CannyJS.canny(canvas);
 	imageData.drawOn(myCanv);
 
-	var diagonala = parseInt(Math.sqrt(canvas.height*canvas.height + canvas.width*canvas.width)+1);
+	var diagonala = parseInt(Math.sqrt(canvas.height * canvas.height + canvas.width * canvas.width)+1);
 
 	var accumulator= new Array();
 
-	for(var i=0;i<diagonala;i++){
-		accumulator[i]= new Array(180);
+	for (var i=0; i < diagonala; i++){
+		accumulator[i] = new Array(180);
 	}
 
-	for(var raza=0;raza<diagonala;raza++){
-		for(var theta=0;theta<180;theta++){
-			accumulator[raza][theta]=0;
+	for (var raza = 0; raza < diagonala; raza++){
+		for (var theta = 0; theta < 180; theta++){
+			accumulator[raza][theta] = 0;
 		}
 	}
 
-	for(var y = 0; y < canvas.height; y++){
-		for(var x = 0; x < canvas.width; x++){
+	for (var y = 0; y < canvas.height; y++){
+		for (var x = 0; x < canvas.width; x++){
 			var culoare = context.getImageData(x, y, 1, 1);
 			var data = culoare.data;
 			// console.log(data.length);
 			if (data[0] > 250 && data[1] > 250 && data[2] > 250){
 				for(var theta = 0; theta < 180; theta++){
 					var raza = parseInt((x - canvas.width / 2) * Math.cos(theta / 180 * 3.14) + (y - canvas.height / 2) * Math.sin(theta / 180 * 3.14));
-					accumulator[raza+diagonala/2][theta]++;
+					accumulator[raza + diagonala / 2][theta]++;
 					// console.log(r+diagonala/2);
 				}
 			}
@@ -67,10 +67,10 @@ base_image.onload = function(){
 
 
 	var maxacc = 0;
-	for(var i=0;i<diagonala;i++){
-		for(var j=0;j<180;j++){
-			if(maxacc<accumulator[i][j]){
-				maxacc = accumulator[i][j];
+	for (var r = 0; r < diagonala; r++){
+		for (var theta = 0; theta < 180; theta++){
+			if (maxacc < accumulator[r][theta]){
+				maxacc = accumulator[r][theta];
 			}
 		}
 	}
@@ -78,9 +78,9 @@ base_image.onload = function(){
 
 
 	// scalez
-	for(var i=0;i<diagonala;i++){
-		for(var j=0;j<180;j++){
-			accumulator[i][j] = parseInt(accumulator[i][j]/maxacc*255);
+	for (var r = 0; r < diagonala; r++){
+		for (var theta = 0; theta < 180; theta++){
+			accumulator[r][theta] = parseInt(accumulator[r][theta] / maxacc * 255);
 		}
 	}
 	
@@ -104,10 +104,10 @@ base_image.onload = function(){
 
 
 
-	var prag = 130;
-	for(var raza=0;raza<diagonala;raza++){
-		for(var theta = 0;theta<180;theta++){
-			if(accumulator[raza][theta]>prag){
+	var prag = 100;
+	for (var raza = 0; raza < diagonala; raza++){
+		for (var theta = 0; theta < 180; theta++){
+			if(accumulator[raza][theta] > prag){
 
 
 				var x1,y1,x2,y2;
@@ -130,8 +130,8 @@ base_image.onload = function(){
 				}
 
 				console.log(x1, y1, x2, y2);
-				ctx.moveTo(x1,y1);
-				ctx.lineTo(x2,y2);
+				ctx.moveTo(x1, y1);
+				ctx.lineTo(x2, y2);
 
 				ctx.stroke();
 			}
