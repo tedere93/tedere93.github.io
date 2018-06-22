@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v2.2";
+document.getElementById("v1").innerHTML = "v2.3";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -49,14 +49,14 @@ base_image.onload = function(){
 		}
 	}
 
-	for(var i=0;i<canvas.height;i++){
-		for(var j=0;j<canvas.width;j++){
-			var culoare = context.getImageData(i,j,1,1);
+	for(var y = 0; y < canvas.height; y++){
+		for(var x = 0; x < canvas.width; x++){
+			var culoare = context.getImageData(x, y, 1, 1);
 			var data = culoare.data;
 			// console.log(data.length);
-			if(data[0] > 250 && data[1] > 250 && data[2] > 250){
-				for(var theta=0;theta<180;theta++){
-					var raza = parseInt((i-canvas.width/2)*Math.cos(theta/180*3.14)+(j - canvas.height/2)*Math.sin(theta/180*3.14));
+			if (data[0] > 250 && data[1] > 250 && data[2] > 250){
+				for(var theta = 0; theta < 180; theta++){
+					var raza = parseInt((x - canvas.width / 2) * Math.cos(theta / 180 * 3.14) + (y - canvas.height / 2) * Math.sin(theta / 180 * 3.14));
 					accumulator[raza+diagonala/2][theta]++;
 					// console.log(r+diagonala/2);
 				}
