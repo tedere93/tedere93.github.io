@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v2.1";
+document.getElementById("v1").innerHTML = "v2.2";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -54,7 +54,7 @@ base_image.onload = function(){
 			var culoare = context.getImageData(i,j,1,1);
 			var data = culoare.data;
 			// console.log(data.length);
-			if(data[0]<255 && data[1]<255 && data[2]<255){
+			if(data[0] > 250 && data[1] > 250 && data[2] > 250){
 				for(var theta=0;theta<180;theta++){
 					var raza = parseInt((i-canvas.width/2)*Math.cos(theta/180*3.14)+(j - canvas.height/2)*Math.sin(theta/180*3.14));
 					accumulator[raza+diagonala/2][theta]++;
