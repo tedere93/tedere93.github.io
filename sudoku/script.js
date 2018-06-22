@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v2.0";
+document.getElementById("v1").innerHTML = "v2.1";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
