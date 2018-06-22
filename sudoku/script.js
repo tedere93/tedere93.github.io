@@ -1,4 +1,4 @@
-document.getElementById("v1").innerHTML = "v2.3";
+document.getElementById("v1").innerHTML = "v2.4";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 
@@ -104,7 +104,7 @@ base_image.onload = function(){
 
 
 
-	var prag = 200;
+	var prag = 130;
 	for(var raza=0;raza<diagonala;raza++){
 		for(var theta = 0;theta<180;theta++){
 			if(accumulator[raza][theta]>prag){
