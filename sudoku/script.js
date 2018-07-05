@@ -103,20 +103,36 @@ base_image.onload = function(){
 	// console.log(uniquearray.sort());
 
 
-
+	var vertical = new Array;
+	var horizontal = new Array
+	var xs = new Array;
+	var ys = new Array;
+	// var acc2[];	
 	var prag = 100;
+	var xss=0;
+	var yss=0;
+	var itt1=0;
+	var itt2=0;
+	var actItt1=0;
+	var actItt2=0;
+	var actualX = new Array;
+	var actualY = new Array;
 	for (var raza = 0; raza < diagonala; raza++){
 		for (var theta = 0; theta < 180; theta++){
 			if(accumulator[raza][theta] > prag){
 
-
-				var x1,y1,x2,y2;
+				
+				var x1,y1,x2,y2,test2;
 				x1 = 0;
 
 				if(theta != 0){
 					y1 = ((raza - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
+					ys[yss]=y1;
+					yss++;
 				} else {
 					x1 = (raza - diagonala/2) + canvas2.width/2;
+					xs[xss]=x1;
+					xss++;
 					y1 = 0;
 				}
 
@@ -129,14 +145,67 @@ base_image.onload = function(){
 					y2 = canvas2.height -1;
 				}
 
-				console.log(x1, y1, x2, y2);
-				ctx.moveTo(x1, y1);
-				ctx.lineTo(x2, y2);
+				// console.log(x1, y1, x2, y2);
+				if(x1==0){
+					var test = ys[itt1-1];
+					var res = Math.abs(y1-test);
+					console.log(res);
+					if(itt1==0){
+						ctx.beginPath();
+						ctx.strokeStyle="#FF0000";
+						ctx.moveTo(x1, y1);
+						ctx.lineTo(x2, y2);
+						ctx.stroke();
+						actualY[actItt1]=y1;
+						actItt1++;
+					} else {
+						if(Math.abs(y1-test)>7){
+							ctx.beginPath();
+							ctx.strokeStyle="#FF0000";
+							ctx.moveTo(x1, y1);
+							ctx.lineTo(x2, y2);
+							ctx.stroke();
+							actualY[actItt1]=y1;
+							actItt1++;
+						}
 
-				ctx.stroke();
+					}
+					itt1++;
+					
+				}else{
+					// console.log(x1+"/"+xs[itt-1]);
+					var test = xs[itt2-1];
+					var res = Math.abs(x1-test);
+					// console.log(res);
+					if(itt2==0){
+						ctx.beginPath();
+						ctx.strokeStyle="#000000";
+						ctx.moveTo(x1, y1);
+						ctx.lineTo(x2, y2);
+						ctx.stroke();
+						actualX[actItt2]=x1;
+						actItt2++;
+					} else{
+						if(Math.abs(x1-test)>7){
+						ctx.beginPath();
+						ctx.strokeStyle="#000000";
+						ctx.moveTo(x1, y1);
+						ctx.lineTo(x2, y2);
+						ctx.stroke();
+						actualX[actItt2]=x1;
+						actItt2++;
+						}
+					}
+					
+					itt2++;
+				}
+				
+				// ctx.stroke();
+				
+				
 			}
 		}
 	}
-
-
+	console.log(actualY);
+	console.log(actualX);
 }
