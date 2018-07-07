@@ -216,7 +216,27 @@ base_image.onload = function(){
 
 	for(var i=0;i<9;i++){
 		for(var j=0;j<9;j++){
-			var imgData = C.getImageData(actualX[i], actualY[j], 39, 39);
+			var coordX;
+			var coordY;
+			if (i>2 && i<6){
+				coordX = actualX[i]+3;
+			} else if (i>5) {
+				coordX = actualX[i]+5;
+			} else {
+				coordX = actualX[i];
+			}
+			if (j>2 && j<6){
+				coordY = (actualY[j])*3/3+3;
+				console.log(coordY+"A");
+			} else if (j>5) {
+				coordY = (actualY[j])*3/3+5;
+				console.log(coordY+"B");
+			} else {
+				coordY = actualY[j];
+				console.log(coordY);
+			}
+			// aici am facut ceva jmekerii sa mai scot din liniile alea negre groase din imagine.
+			var imgData = C.getImageData( coordX,coordY, 40, 40);
 
     		cx.putImageData(imgData, actualX[i], actualY[j]);
 		}
