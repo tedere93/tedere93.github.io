@@ -1,18 +1,23 @@
 document.getElementById("v1").innerHTML = "v2.5";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
+cx = document.getElementById("myCanv3").getContext('2d');
+C = document.getElementById("myCanv4").getContext('2d');
 
 
 
 var canvas2 = document.getElementById('myCanv2');
 ctx = canvas2.getContext('2d');
 ctx.fillStyle = "blue";
+cx.fillStyle="green";
+cx.fillRect(0,0,canvas2.width,canvas2.height);
 ctx.fillRect(0, 0, canvas2.width, canvas2.height);
 
 base_image = new Image();
 base_image.src = 'sudoku.png';
 base_image.onload = function(){
 	context.drawImage(base_image, 0, 0);
+	C.drawImage(base_image,0,0);
 	var image = context.getImageData(1, 1, 400, 400);
 	var data = image.data;
 	// for(var i = 0;i<data.length;i+=4){
@@ -208,4 +213,13 @@ base_image.onload = function(){
 	}
 	console.log(actualY);
 	console.log(actualX);
+
+	for(var i=0;i<9;i++){
+		for(var j=0;j<9;j++){
+			var imgData = C.getImageData(actualX[i], actualY[j], 39, 39);
+
+    		cx.putImageData(imgData, actualX[i], actualY[j]);
+		}
+	}
+
 }
