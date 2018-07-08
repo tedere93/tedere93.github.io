@@ -2,22 +2,22 @@ document.getElementById("v1").innerHTML = "v2.5";
 var canvas = document.getElementById('myCanv');
 context = canvas.getContext('2d');
 cx = document.getElementById("myCanv3").getContext('2d');
-C = document.getElementById("myCanv4").getContext('2d');
+originalPhotoContext = document.getElementById("myCanv4").getContext('2d');
 
 
 
 var canvas2 = document.getElementById('myCanv2');
-ctx = canvas2.getContext('2d');
-ctx.fillStyle = "blue";
+linesContext = canvas2.getContext('2d');
+linesContext.fillStyle = "blue";
 cx.fillStyle="green";
 cx.fillRect(0,0,canvas2.width,canvas2.height);
-ctx.fillRect(0, 0, canvas2.width, canvas2.height);
+linesContext.fillRect(0, 0, canvas2.width, canvas2.height);
 
 base_image = new Image();
 base_image.src = 'sudoku.png';
 base_image.onload = function(){
 	context.drawImage(base_image, 0, 0);
-	C.drawImage(base_image,0,0);
+	originalPhotoContext.drawImage(base_image,0,0);
 	var image = context.getImageData(1, 1, 400, 400);
 	var data = image.data;
 	// for(var i = 0;i<data.length;i+=4){
@@ -110,16 +110,22 @@ base_image.onload = function(){
 
 	var vertical = new Array;
 	var horizontal = new Array
-	var xs = new Array;
-	var ys = new Array;
-	// var acc2[];	
+
+	//toti x
+	var totalXs = new Array;
+	//toti y
+	var totalYs = new Array;
+
 	var prag = 100;
+
 	var xss=0;
 	var yss=0;
 	var itt1=0;
 	var itt2=0;
 	var actItt1=0;
 	var actItt2=0;
+
+
 	var actualX = new Array;
 	var actualY = new Array;
 	for (var raza = 0; raza < diagonala; raza++){
@@ -132,11 +138,11 @@ base_image.onload = function(){
 
 				if(theta != 0){
 					y1 = ((raza - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
-					ys[yss]=y1;
+					totalYs[yss]=y1;
 					yss++;
 				} else {
 					x1 = (raza - diagonala/2) + canvas2.width/2;
-					xs[xss]=x1;
+					totalXs[xss]=x1;
 					xss++;
 					y1 = 0;
 				}
@@ -152,24 +158,24 @@ base_image.onload = function(){
 
 				// console.log(x1, y1, x2, y2);
 				if(x1==0){
-					var test = ys[itt1-1];
+					var test = totalYs[itt1-1];
 					var res = Math.abs(y1-test);
 					console.log(res);
 					if(itt1==0){
-						ctx.beginPath();
-						ctx.strokeStyle="#FF0000";
-						ctx.moveTo(x1, y1);
-						ctx.lineTo(x2, y2);
-						ctx.stroke();
+						linesContext.beginPath();
+						linesContext.strokeStyle="#FF0000";
+						linesContext.moveTo(x1, y1);
+						linesContext.lineTo(x2, y2);
+						linesContext.stroke();
 						actualY[actItt1]=y1;
 						actItt1++;
 					} else {
 						if(Math.abs(y1-test)>7){
-							ctx.beginPath();
-							ctx.strokeStyle="#FF0000";
-							ctx.moveTo(x1, y1);
-							ctx.lineTo(x2, y2);
-							ctx.stroke();
+							linesContext.beginPath();
+							linesContext.strokeStyle="#FF0000";
+							linesContext.moveTo(x1, y1);
+							linesContext.lineTo(x2, y2);
+							linesContext.stroke();
 							actualY[actItt1]=y1;
 							actItt1++;
 						}
@@ -178,36 +184,31 @@ base_image.onload = function(){
 					itt1++;
 					
 				}else{
-					// console.log(x1+"/"+xs[itt-1]);
-					var test = xs[itt2-1];
+					// console.log(x1+"/"+totalXs[itt-1]);
+					var test = totalXs[itt2-1];
 					var res = Math.abs(x1-test);
 					// console.log(res);
 					if(itt2==0){
-						ctx.beginPath();
-						ctx.strokeStyle="#000000";
-						ctx.moveTo(x1, y1);
-						ctx.lineTo(x2, y2);
-						ctx.stroke();
+						linesContext.beginPath();
+						linesContext.strokeStyle="#000000";
+						linesContext.moveTo(x1, y1);
+						linesContext.lineTo(x2, y2);
+						linesContext.stroke();
 						actualX[actItt2]=x1;
 						actItt2++;
 					} else{
 						if(Math.abs(x1-test)>7){
-						ctx.beginPath();
-						ctx.strokeStyle="#000000";
-						ctx.moveTo(x1, y1);
-						ctx.lineTo(x2, y2);
-						ctx.stroke();
+						linesContext.beginPath();
+						linesContext.strokeStyle="#000000";
+						linesContext.moveTo(x1, y1);
+						linesContext.lineTo(x2, y2);
+						linesContext.stroke();
 						actualX[actItt2]=x1;
 						actItt2++;
 						}
 					}
-					
 					itt2++;
 				}
-				
-				// ctx.stroke();
-				
-				
 			}
 		}
 	}
@@ -235,8 +236,7 @@ base_image.onload = function(){
 				coordY = actualY[j];
 				console.log(coordY);
 			}
-			// aici am facut ceva jmekerii sa mai scot din liniile alea negre groase din imagine.
-			var imgData = C.getImageData( coordX,coordY, 40, 40);
+			var imgData = originalPhotoContext.getImageData( coordX,coordY, 40, 40);
 
     		cx.putImageData(imgData, actualX[i], actualY[j]);
 		}
