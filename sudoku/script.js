@@ -220,21 +220,19 @@ base_image.onload = function(){
 			var coordX;
 			var coordY;
 			if (i>2 && i<6){
-				coordX = actualX[i]+3;
+				coordX = actualX[i]+5;
 			} else if (i>5) {
 				coordX = actualX[i]+5;
 			} else {
 				coordX = actualX[i];
 			}
 			if (j>2 && j<6){
-				coordY = (actualY[j])*3/3+3;
-				console.log(coordY+"A");
+				// (*3/3) asta il fac pentru ca imi concatena ca si stringuri, nu imi facea adunarea.
+				coordY = (actualY[j])*3/3+5;
 			} else if (j>5) {
 				coordY = (actualY[j])*3/3+5;
-				console.log(coordY+"B");
 			} else {
 				coordY = actualY[j];
-				console.log(coordY);
 			}
 			var imgData = originalPhotoContext.getImageData( coordX,coordY, 40, 40);
 
