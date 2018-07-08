@@ -1,24 +1,24 @@
 document.getElementById("v1").innerHTML = "v2.5";
-var canvas = document.getElementById('myCanv');
-context = canvas.getContext('2d');
-cx = document.getElementById("myCanv3").getContext('2d');
-originalPhotoContext = document.getElementById("myCanv4").getContext('2d');
+var transformCanvas = document.getElementById('transformCanv');
+transformContext = transformCanvas.getContext('2d');
+tilesContext = document.getElementById("tileCanv").getContext('2d');
+originalPhotoContext = document.getElementById("originalCanv").getContext('2d');
 
 
 
-var canvas2 = document.getElementById('myCanv2');
-linesContext = canvas2.getContext('2d');
+var linesCanvas = document.getElementById('linesCanv');
+linesContext = linesCanvas.getContext('2d');
 linesContext.fillStyle = "blue";
-cx.fillStyle="green";
-cx.fillRect(0,0,canvas2.width,canvas2.height);
-linesContext.fillRect(0, 0, canvas2.width, canvas2.height);
+tilesContext.fillStyle="green";
+tilesContext.fillRect(0,0,linesCanvas.width,linesCanvas.height);
+linesContext.fillRect(0, 0, linesCanvas.width, linesCanvas.height);
 
 base_image = new Image();
 base_image.src = 'sudoku.png';
 base_image.onload = function(){
-	context.drawImage(base_image, 0, 0);
+	transformContext.drawImage(base_image, 0, 0);
 	originalPhotoContext.drawImage(base_image,0,0);
-	var image = context.getImageData(1, 1, 400, 400);
+	var image = transformContext.getImageData(1, 1, 400, 400);
 	var data = image.data;
 	// for(var i = 0;i<data.length;i+=4){
 	// 	var red = data[i];
@@ -35,12 +35,12 @@ base_image.onload = function(){
 	// 		data[i+2] = 0;
 	// 	}
 	// }
-	// context.putImageData(image,0,0);
+	// transformContext.putImageData(image,0,0);
 
-	var imageData = CannyJS.canny(canvas);
-	imageData.drawOn(myCanv);
+	var imageData = CannyJS.canny(transformCanvas);
+	imageData.drawOn(transformCanv);
 
-	var diagonala = parseInt(Math.sqrt(canvas.height * canvas.height + canvas.width * canvas.width)+1);
+	var diagonala = parseInt(Math.sqrt(transformCanvas.height * transformCanvas.height + transformCanvas.width * transformCanvas.width)+1);
 
 	var accumulator= new Array();
 
@@ -54,14 +54,14 @@ base_image.onload = function(){
 		}
 	}
 
-	for (var y = 0; y < canvas.height; y++){
-		for (var x = 0; x < canvas.width; x++){
-			var culoare = context.getImageData(x, y, 1, 1);
+	for (var y = 0; y < transformCanvas.height; y++){
+		for (var x = 0; x < transformCanvas.width; x++){
+			var culoare = transformContext.getImageData(x, y, 1, 1);
 			var data = culoare.data;
 			// console.log(data.length);
 			if (data[0] > 250 && data[1] > 250 && data[2] > 250){
 				for(var theta = 0; theta < 180; theta++){
-					var raza = parseInt((x - canvas.width / 2) * Math.cos(theta / 180 * 3.14) + (y - canvas.height / 2) * Math.sin(theta / 180 * 3.14));
+					var raza = parseInt((x - transformCanvas.width / 2) * Math.cos(theta / 180 * 3.14) + (y - transformCanvas.height / 2) * Math.sin(theta / 180 * 3.14));
 					accumulator[raza + diagonala / 2][theta]++;
 					// console.log(r+diagonala/2);
 				}
@@ -137,29 +137,29 @@ base_image.onload = function(){
 				x1 = 0;
 
 				if(theta != 0){
-					y1 = ((raza - diagonala/2 - (x1 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
+					y1 = ((raza - diagonala/2 - (x1 - linesCanvas.width / 2) * Math.cos(theta / 180.0 * 3.14)) / Math.sin(theta / 180.0 * 3.14) + linesCanvas.height / 2).toFixed(0);
 					totalYs[yss]=y1;
 					yss++;
 				} else {
-					x1 = (raza - diagonala/2) + canvas2.width/2;
+					x1 = (raza - diagonala/2) + linesCanvas.width/2;
 					totalXs[xss]=x1;
 					xss++;
 					y1 = 0;
 				}
 
-				x2 = canvas2.width -1;
+				x2 = linesCanvas.width -1;
 
 				if(theta != 0){
-					y2 = ((raza - diagonala/2 - (x2 - canvas2.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + canvas2.height/2).toFixed(0);
+					y2 = ((raza - diagonala/2 - (x2 - linesCanvas.width/2) * Math.cos(theta/180.0*3.14))/ Math.sin(theta/180.0*3.14) + linesCanvas.height/2).toFixed(0);
 				} else {
-					x2 = (raza - diagonala/2) + canvas2.width/2;
-					y2 = canvas2.height -1;
+					x2 = (raza - diagonala/2) + linesCanvas.width/2;
+					y2 = linesCanvas.height -1;
 				}
 
 				// console.log(x1, y1, x2, y2);
 				if(x1==0){
-					var test = totalYs[itt1-1];
-					var res = Math.abs(y1-test);
+					var test = totalYs[itt1 - 1];
+					var res = Math.abs(y1 - test);
 					console.log(res);
 					if(itt1==0){
 						linesContext.beginPath();
@@ -170,7 +170,7 @@ base_image.onload = function(){
 						actualY[actItt1]=y1;
 						actItt1++;
 					} else {
-						if(Math.abs(y1-test)>7){
+						if(Math.abs(y1 - test) > 7){
 							linesContext.beginPath();
 							linesContext.strokeStyle="#FF0000";
 							linesContext.moveTo(x1, y1);
@@ -186,7 +186,7 @@ base_image.onload = function(){
 				}else{
 					// console.log(x1+"/"+totalXs[itt-1]);
 					var test = totalXs[itt2-1];
-					var res = Math.abs(x1-test);
+					var res = Math.abs(x1 - test);
 					// console.log(res);
 					if(itt2==0){
 						linesContext.beginPath();
@@ -197,14 +197,14 @@ base_image.onload = function(){
 						actualX[actItt2]=x1;
 						actItt2++;
 					} else{
-						if(Math.abs(x1-test)>7){
-						linesContext.beginPath();
-						linesContext.strokeStyle="#000000";
-						linesContext.moveTo(x1, y1);
-						linesContext.lineTo(x2, y2);
-						linesContext.stroke();
-						actualX[actItt2]=x1;
-						actItt2++;
+						if(Math.abs(x1 - test) > 7){
+							linesContext.beginPath();
+							linesContext.strokeStyle="#000000";
+							linesContext.moveTo(x1, y1);
+							linesContext.lineTo(x2, y2);
+							linesContext.stroke();
+							actualX[actItt2]=x1;
+							actItt2++;
 						}
 					}
 					itt2++;
@@ -215,28 +215,28 @@ base_image.onload = function(){
 	console.log(actualY);
 	console.log(actualX);
 
-	for(var i=0;i<9;i++){
-		for(var j=0;j<9;j++){
+	for(var i = 0; i < 9; i++){
+		for(var j = 0; j < 9; j++){
 			var coordX;
 			var coordY;
-			if (i>2 && i<6){
-				coordX = actualX[i]+5;
-			} else if (i>5) {
-				coordX = actualX[i]+5;
+			if (i > 2 && i < 6){
+				coordX = actualX[i] + 5;
+			} else if (i > 5) {
+				coordX = actualX[i] + 5;
 			} else {
 				coordX = actualX[i];
 			}
-			if (j>2 && j<6){
+			if (j > 2 && j < 6){
 				// (*3/3) asta il fac pentru ca imi concatena ca si stringuri, nu imi facea adunarea.
-				coordY = (actualY[j])*3/3+5;
-			} else if (j>5) {
-				coordY = (actualY[j])*3/3+5;
+				coordY = (actualY[j]) * 3 / 3 + 5;
+			} else if (j > 5) {
+				coordY = (actualY[j]) * 3 / 3 + 5;
 			} else {
 				coordY = actualY[j];
 			}
 			var imgData = originalPhotoContext.getImageData( coordX,coordY, 40, 40);
 
-    		cx.putImageData(imgData, actualX[i], actualY[j]);
+    		tilesContext.putImageData(imgData, actualX[i], actualY[j]);
 		}
 	}
 
