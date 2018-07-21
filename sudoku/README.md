@@ -1,6 +1,6 @@
 ## Sudoku solver web application
 This application's main purpose is to detect a 9x9 semi-complete Sudoku board and to solve it. As of right now, it's only been tested and debugged for 400x400 px boards containing handwritten digits, similar to those that can be found in the MNIST dataset. 
-The detection is made as follows:__
+The detection is made as follows:  
 	1: Apply the Canny transform on the original image.__
 	2: Apply the Hough transform on the image resulted after step #1 that results in a matrix containing the lines present in the image, from which a third image is created containing only the horizontal and vertical lines in the photo.__
 	3: Remove the linest that are too close to eachother, resulting in 10 horizontal and 10 vertical lines, this being the board.
