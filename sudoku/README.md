@@ -1,62 +1,26 @@
-# Canny JS
-A (client-side) JavaScript implementation of Canny Edge Detection based on HTML5 canvas API.
+## Sudoku solver web application
+This application's main purpose is to detect a 9x9 semi-complete Sudoku board and to solve it. As of right now, it's only been tested and debugged for 400x400 px boards containing handwritten digits, similar to those that can be found in the MNIST dataset. 
+The detection is made as follows: 
+	1: Apply the Canny transform on the original image.
+	2: Apply the Hough transform on the image resulted after step #1 that results in a matrix containing the lines present in the image, from which a third image is created containing only the horizontal and vertical lines in the photo.
+	3: Remove the linest that are too close to eachother, resulting in 10 horizontal and 10 vertical lines, this being the board.
+	4: Intersecting two lines results in an approximative position of a square's top left corner.
+	5: Knowing a square is approximately 40x40 px, an image is extracted from each square and is sent to the an ANN (artificial neural network) which returns wether there is a digit in it, or if it's an empty box, and creates a new matrics.
+	6: The matrics generated at step #5 is then sent to a backtracking Sudoku solver which returns the solved matrics, assuming there is a solution.
+	7: Finally, the original image is completed by drawing the suitable digit on each of its empty boxes.
+A bunch of other canvasses can be found on the main page containing an image of the majority of the steps. Try changing the "display" attribute from "none" to "block" to reaveal them.	
+
 
 ## Demo
-Visit the [demo page](http://yuta1984.github.io/canny/examples/) to see it in action.
+Visit the [demo](https://tedere93.github.io/sudoku/) to see it in action.
 
-## Usage
-Include `canny.min.js` in your html file:
 
-```
-	<script src="js/canny.min.js"></script>
-```
+## Credits
+CannyJS - https://github.com/yuta1984/CannyJS
+ANN - https://github.com/mihaioltean/ann
+Backtracking solver - https://github.com/LeeYiyuan/sudokusolver
 
-`CannyJS.canny` method loads the image data from a given canvas, and returns the resulting image data as a `GrayImageData` object. To show the resulting image, just call its `drawOn(canvas)` method.
 
-```javascript
-// get target canvas element
-mycanvas = document.getElementById("myCanvas");
-// perform edge detection
-imageData = CannyJS.canny(canvas);
-// overwrites the original canvas 
-image.drawOn(mycanvas);
-```
-
-## Options
-You can give some optional parameters to `CannyJS.canny` method:
-
-```javascript
-	CannyJS.canny(canvas, [ht=100], [lt=50], [sigmma=1.4], [kernelSize=5])
-```	
-
-`ht` and `lt` represent high and low threshold values that will be used in hysteresis thresholding procedure. Both `sigmma` and `kernalSize` are parameters used in Gaussian blur process (note that `kernelSize` must be an odd number).
-
-## Other APIs
-You can also call methods that perform each step of Canny edge detection: gaussian blur, sobel filtering, non-maximum suppression and hysteresis thresholding. Since these methods all receive and return `GrayImageData` objects, you first need to build an instance and make it load image data:
-
-```javascript
-	var canvas = document.getElementById("myCanvas");
-	// construct a new GrayImageData object
-	var imageData = new GrayImageData(canvas.width, canvas.height)
-	// load image data from canvas
-	imageData.loadCanvas(canavs);
-```
-
-Available methods are as follows:
-
-```javascript
-	// apply Gaussian filter 
-	CannyJS.gaussianBlur(imageData, [sigmma=1.4], [kernelSize=5])
-	// apply sobel filter
-	CannyJS.sobel(blur)
-	// apply non-Maximum suppression
-	CannyJS.nonMaximumSuppression(sobel)
-	// apply hysteresis thresholding
-	CannyJS.hysteresis(nms, [ht=100], [lt=50])
-```
-
-## Performance
-From what I tested CannyJS takes 3-4 seconds to perform edge-detection on an image with size 600x400 (tested on Chrome 38 on MacBookAir). Because I wrote this library in CoffeeScript I have difficulties in optimizing the generated code for better performance. Any suggestion or fix will be appreciated (perhaps I better rewrite it in native JavaScript?).
 
 ## License
 MIT License.
