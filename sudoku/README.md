@@ -3,7 +3,7 @@ This application's main purpose is to detect a 9x9 semi-complete Sudoku board an
 The detection is made as follows:  
 	1: Apply the Canny transform on the original image.  
 	2: Apply the Hough transform on the image resulted after step #1 that results in a matrix containing the lines present in the image, from which a third image is created containing only the horizontal and vertical lines in the photo.  
-	3: Remove the linest that are too close to eachother, resulting in 10 horizontal and 10 vertical lines, this being the board.
+	3: Remove the linest that are too close to eachother, resulting in 10 horizontal and 10 vertical lines, this being the board.  
 	4: Intersecting two lines results in an approximative position of a square's top left corner.  
 	5: Knowing a square is approximately 40x40 px, an image is extracted from each square and is sent to the an ANN (artificial neural network) which returns wether there is a digit in it, or if it's an empty box, and creates a new matrics.  
 	6: The matrics generated at step #5 is then sent to a backtracking Sudoku solver which returns the solved matrics, assuming there is a solution.  
