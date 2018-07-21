@@ -2,28 +2,52 @@
 <html>
 <head>
 	<title></title>
-	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="sudokuJS.js"></script>
+	<link rel="stylesheet" media="all" type="text/css" href="sudokuJS.css">
 </head>
 <body>
-	<p id="v1"></p>
-	<img src="sudoku.png" style="display: none">
-	<canvas id="transformCanv" width="400px" height="400px" style="border: solid 1px black">
-		
-	</canvas>
-	<canvas id="tileCanv" width="400px" height="400px" style="border: solid 1px blue">
-		
-	</canvas>
+	<p id = "v1"></p>
+	
+	<canvas id="transformCanv" width="400px" height="400px" style="border: solid 1px black;display: none"> </canvas>
+	<canvas id="tileCanv" width="400px" height="400px" style="border: solid 1px blue;display: none"> </canvas>
 	<br>
-	<canvas id="linesCanv" width="400px" height="400px" style="border: solid 1px red">
-		
-	</canvas>
+	<canvas id="linesCanv" width="400px" height="400px" style="border: solid 1px red;display: none"></canvas>
 
-	<canvas id="originalCanv" width="400px" height="400px" style="border: solid 1px black;display:none">
-		
-	</canvas>
+	<canvas id="originalCanv" width="400px" height="400px" style="border: solid 1px black">	</canvas>
+	<canvas id="canvas_28x28" width="400px" height="400px" style="border: solid 1px black;display: none">	</canvas>
 
-	<script src="canny.min.js"></script>
-	<script type="text/javascript" src="script.js"></script>
+	<div id='sudoku'></div>
+
+	<script src = "ann_298.js"></script>
+	<script src = "ann_test.js"></script>
+	<script src  ="canny.min.js"></script>
+	<script type = "text/javascript" src = "script.js"></script>
+	<button type="button" class="js-solve-step-btn" id="solver">Solve</button>
+
+
+	<!-- canvases and images containing every digit-->
+	<div style="display:none">
+		<img src="1.png">
+		<img src="2.png">
+		<img src="3.png">
+		<img src="4.png">
+		<img src="5.png">
+		<img src="6.png">
+		<img src="7.png">
+		<img src="8.png">
+		<img src="9.png">
+		<canvas id="data1" width="40px" height="40px"></canvas>
+		<canvas id="data2" width="40px" height="40px"></canvas>
+		<canvas id="data3" width="40px" height="40px"></canvas>
+		<canvas id="data4" width="40px" height="40px"></canvas>
+		<canvas id="data5" width="40px" height="40px"></canvas>
+		<canvas id="data6" width="40px" height="40px"></canvas>
+		<canvas id="data7" width="40px" height="40px"></canvas>
+		<canvas id="data8" width="40px" height="40px"></canvas>
+		<canvas id="data9" width="40px" height="40px"></canvas>
+	</div>
+	
 
 </body>
 </html>
