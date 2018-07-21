@@ -22,5 +22,9 @@ Backtracking solver - https://github.com/LeeYiyuan/sudokusolver
 
 
 
+
+
 ## License
 MIT License.
+
+I'm sorry the code is so messy, i'll try to make a little more legible in time. 
